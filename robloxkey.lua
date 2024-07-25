@@ -1,83 +1,145 @@
-local HttpService = game:GetService("HttpService")
-
--- Create UI elements
 local ScreenGui = Instance.new("ScreenGui")
-local Frame = Instance.new("Frame")
-local UICorner = Instance.new("UICorner")
-local TextBox = Instance.new("TextBox")
-local UICorner_2 = Instance.new("UICorner")
-local EnterButton = Instance.new("TextButton")
-
--- Properties:
-
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-ScreenGui.IgnoreGuiInset = true
 
-Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.fromRGB(68, 68, 68)
-Frame.BackgroundTransparency = 0.150
-Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0, 400, 0, 300)
+Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+Frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 Frame.BorderSizePixel = 0
-Frame.Position = UDim2.new(0, 0, -3.6388208e-08, 0)
-Frame.Size = UDim2.new(1, 0, 1, 0)
+Frame.Active = true
+Frame.Draggable = true
+Frame.Parent = ScreenGui
 
-UICorner.Parent = Frame
+local FrameCorner = Instance.new("UICorner")
+FrameCorner.CornerRadius = UDim.new(0, 10)
+FrameCorner.Parent = Frame
 
-TextBox.Parent = Frame
-TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TextBox.BorderSizePixel = 0
-TextBox.Position = UDim2.new(0.237115815, 0, 0.360464334, 0)
-TextBox.Size = UDim2.new(0.522251904, 0, 0.0619286932, 0)
-TextBox.Font = Enum.Font.SourceSans
-TextBox.PlaceholderText = "Enter your key here."
+local Close = Instance.new("TextButton")
+Close.Size = UDim2.new(0, 40, 0, 40)
+Close.Position = UDim2.new(1, -40, 0, 0)
+Close.BackgroundTransparency = 1
+Close.Text = "×"
+Close.TextScaled = true
+Close.TextColor3 = Color3.fromRGB(150, 150, 150)
+Close.Parent = Frame
+Close.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.Position = UDim2.new(0, 0, 0.05, 0)
+Title.Text = "Key System"
+Title.TextSize = 18
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.BackgroundTransparency = 1
+Title.Parent = Frame
+
+local Instructions = Instance.new("TextLabel")
+Instructions.Size = UDim2.new(1, 0, 0, 30)
+Instructions.Position = UDim2.new(0, 0, 0.2, 0)
+Instructions.Text = "Enter Key To Access The Script"
+Instructions.TextSize = 13
+Instructions.TextColor3 = Color3.fromRGB(150, 150, 150)
+Instructions.BackgroundTransparency = 1
+Instructions.Parent = Frame
+
+local TextBox = Instance.new("TextBox")
+TextBox.Size = UDim2.new(0.8, 0, 0.2, 0)
+TextBox.Position = UDim2.new(0.1, 0, 0.4, 0)
+TextBox.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+TextBox.PlaceholderText = "Enter Key..."
 TextBox.Text = ""
-TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextBox.TextSize = 14.000
+TextBox.TextSize = 18
+TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.Parent = Frame
 
-UICorner_2.Parent = TextBox
+local TextBoxCorner = Instance.new("UICorner")
+TextBoxCorner.CornerRadius = UDim.new(0, 5)
+TextBoxCorner.Parent = TextBox
 
-EnterButton.Parent = Frame
-EnterButton.BackgroundColor3 = Color3.fromRGB(60, 255, 0)
-EnterButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-EnterButton.BorderSizePixel = 0
-EnterButton.Position = UDim2.new(0.380673736, 0, 0.530959904, 0)
-EnterButton.Size = UDim2.new(0.237828568, 0, 0.0669138432, 0)
-EnterButton.Font = Enum.Font.SourceSans
-EnterButton.Text = "Authorize"
-EnterButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-EnterButton.TextScaled = true
-EnterButton.TextSize = 14.000
-EnterButton.TextWrapped = true
+local GetKey = Instance.new("TextButton")
+GetKey.Size = UDim2.new(0.35, 0, 0.15, 0)
+GetKey.Position = UDim2.new(0.1, 0, 0.7, 0)
+GetKey.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+GetKey.Text = "Get Key"
+GetKey.TextSize = 18
+GetKey.TextColor3 = Color3.fromRGB(150, 150, 150)
+GetKey.Parent = Frame
 
--- Function to handle button click
-EnterButton.MouseButton1Click:Connect(function()
-    local enteredKey = TextBox.Text
-    local url = "https://raw.githubusercontent.com/Theobfusicatorguy/KEYS/main/SCRIPT.txt"
+local GetKeyCorner = Instance.new("UICorner")
+GetKeyCorner.CornerRadius = UDim.new(0, 5)
+GetKeyCorner.Parent = GetKey
 
-    -- Fetch the list of keys
-    local success, result = pcall(function()
-        return HttpService:GetAsync(url)
-    end)
+local CheckKey = Instance.new("TextButton")
+CheckKey.Size = UDim2.new(0.35, 0, 0.15, 0)
+CheckKey.Position = UDim2.new(0.55, 0, 0.7, 0)
+CheckKey.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+CheckKey.Text = "Check Key"
+CheckKey.TextSize = 18
+CheckKey.TextColor3 = Color3.fromRGB(150, 150, 150)
+CheckKey.Parent = Frame
 
-    if success then
-        print("Successfully fetched the keys")
-        local keys = string.split(result, "\n")
+local CheckKeyCorner = Instance.new("UICorner")
+CheckKeyCorner.CornerRadius = UDim.new(0, 5)
+CheckKeyCorner.Parent = CheckKey
 
-        for _, key in ipairs(keys) do
-            if enteredKey == key then
-                -- Key matches
-                print("Authorized key: " .. key)
-                -- Insert your full exploit script here
-                print("hihih:")
-                return
-            end
+GetKey.MouseButton1Click:Connect(function()
+    setclipboard("Get your key from https://example.com")
+end)
+
+local function fetchKeys()
+    local response = game:HttpGet("https://raw.githubusercontent.com/Theobfusicatorguy/KEYS/main/SCRIPT.txt")
+    local keys = {}
+    for key in response:gmatch("%S+") do
+        table.insert(keys, key)
+    end
+    return keys
+end
+
+local validKeys = fetchKeys()
+
+local function validateKey(key)
+    for _, validKey in pairs(validKeys) do
+        if key == validKey then
+            return true
         end
+    end
+    return false
+end
 
-        -- If the key does not match
-        print("Invalid key")
+CheckKey.MouseButton1Click:Connect(function()
+    local enteredKey = TextBox.Text
+    if validateKey(enteredKey) then
+        TextBox.PlaceholderText = "Correct Key!"
+        TextBox.Text = ""
+        wait(1)
+        ScreenGui:Destroy()
+
+        -- Place your protected script here
+        local protectedScript = [[
+            print("Access granted! Running protected script...")
+
+            function greet()
+                print("Hello, welcome to the AI menu!")
+            end
+
+            greet()
+
+            -- Additional functions or logic can go here
+            function additionalFeature()
+                print("This is an additional feature.")
+            end
+
+            additionalFeature()
+        ]]
+
+        loadstring(protectedScript)()
     else
-        print("Failed to fetch the keys: " .. tostring(result))
+        TextBox.PlaceholderText = "Invalid key. Try again."
+        TextBox.Text = ""
+        wait(1)
+        TextBox.PlaceholderText = "Enter Key..."
     end
 end)
