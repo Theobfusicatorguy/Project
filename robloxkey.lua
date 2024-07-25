@@ -86,7 +86,7 @@ CheckKeyCorner.CornerRadius = UDim.new(0, 5)
 CheckKeyCorner.Parent = CheckKey
 
 GetKey.MouseButton1Click:Connect(function()
-    setclipboard("Get your key from https://example.com")
+    setclipboard("KEY IS ONLY GIVEN TO WHITELIST.")
 end)
 
 local function fetchKeys()
@@ -119,20 +119,37 @@ CheckKey.MouseButton1Click:Connect(function()
 
         -- Place your protected script here
         local protectedScript = [[
-            print("Access granted! Running protected script...")
+            -- Gui to Lua
+-- Version: 3.2
 
-            function greet()
-                print("Hello, welcome to the AI menu!")
-            end
+-- Instances:
 
-            greet()
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
 
-            -- Additional functions or logic can go here
-            function additionalFeature()
-                print("This is an additional feature.")
-            end
+--Properties:
 
-            additionalFeature()
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0, 0, -0.00238470128, 0)
+Frame.Size = UDim2.new(1, 0, 1, 0)
+
+TextLabel.Parent = ScreenGui
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.BorderSizePixel = 0
+TextLabel.Position = UDim2.new(0.347222209, 0, 0.352941155, 0)
+TextLabel.Size = UDim2.new(0, 200, 0, 50)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "UNLOCKED YAYAYAYYAYA"
+TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.TextSize = 14.000
         ]]
 
         loadstring(protectedScript)()
