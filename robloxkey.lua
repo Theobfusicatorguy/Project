@@ -1,3 +1,6 @@
+local HttpService = game:GetService("HttpService")
+
+-- Create UI elements
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local UICorner = Instance.new("UICorner")
@@ -5,10 +8,11 @@ local TextBox = Instance.new("TextBox")
 local UICorner_2 = Instance.new("UICorner")
 local EnterButton = Instance.new("TextButton")
 
---Properties:
+-- Properties:
 
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.IgnoreGuiInset = true
 
 Frame.Parent = ScreenGui
 Frame.BackgroundColor3 = Color3.fromRGB(68, 68, 68)
@@ -47,37 +51,30 @@ EnterButton.TextScaled = true
 EnterButton.TextSize = 14.000
 EnterButton.TextWrapped = true
 
--- Function to handle HTTP request using Synapse X
-local function httpGet(url)
-    return syn.request({
-        Url = url,
-        Method = "GET"
-    }).Body
-end
-
+-- Function to handle button click
 EnterButton.MouseButton1Click:Connect(function()
     local enteredKey = TextBox.Text
     local url = "https://raw.githubusercontent.com/Theobfusicatorguy/KEYS/main/SCRIPT.txt"
-    
+
     -- Fetch the list of keys
     local success, result = pcall(function()
-        return httpGet(url)
+        return HttpService:GetAsync(url)
     end)
-    
+
     if success then
         print("Successfully fetched the keys")
         local keys = string.split(result, "\n")
-        
+
         for _, key in ipairs(keys) do
             if enteredKey == key then
-                -- Key matches, execute the embedded script directly
+                -- Key matches
                 print("Authorized key: " .. key)
                 -- Insert your full exploit script here
                 print("hihih:")
                 return
             end
         end
-        
+
         -- If the key does not match
         print("Invalid key")
     else
