@@ -9,7 +9,6 @@ local EnterButton = Instance.new("TextButton")
 
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-ScreenGui.IgnoreGuiInset = true
 
 Frame.Parent = ScreenGui
 Frame.BackgroundColor3 = Color3.fromRGB(68, 68, 68)
@@ -48,35 +47,40 @@ EnterButton.TextScaled = true
 EnterButton.TextSize = 14.000
 EnterButton.TextWrapped = true
 
--- Script to handle button click and authorization
-local HttpService = game:GetService("HttpService")
+-- Function to handle HTTP request using Synapse X
+local function httpGet(url)
+    return syn.request({
+        Url = url,
+        Method = "GET"
+    }).Body
+end
 
 EnterButton.MouseButton1Click:Connect(function()
-	local enteredKey = TextBox.Text
-	local url = "https://raw.githubusercontent.com/Theobfusicatorguy/KEYS/main/SCRIPT.txt"
-
-	-- Fetch the list of keys
-	local success, result = pcall(function()
-		return HttpService:GetAsync(url)
-	end)
-
-	if success then
-		print("Successfully fetched the keys")
-		local keys = string.split(result, "\n")
-
-		for _, key in ipairs(keys) do
-			if enteredKey == key then
-				-- Key matches, execute the embedded script directly
-				print("Authorized key: " .. key)
-				-- Insert your full exploit script here
-				print("hihih:")
-				return
-			end
-		end
-
-		-- If the key does not match
-		print("Invalid key")
-	else
-		print("Failed to fetch the keys: " .. tostring(result))
-	end
+    local enteredKey = TextBox.Text
+    local url = "https://raw.githubusercontent.com/Theobfusicatorguy/KEYS/main/SCRIPT.txt"
+    
+    -- Fetch the list of keys
+    local success, result = pcall(function()
+        return httpGet(url)
+    end)
+    
+    if success then
+        print("Successfully fetched the keys")
+        local keys = string.split(result, "\n")
+        
+        for _, key in ipairs(keys) do
+            if enteredKey == key then
+                -- Key matches, execute the embedded script directly
+                print("Authorized key: " .. key)
+                -- Insert your full exploit script here
+                print("hihih:")
+                return
+            end
+        end
+        
+        -- If the key does not match
+        print("Invalid key")
+    else
+        print("Failed to fetch the keys: " .. tostring(result))
+    end
 end)
